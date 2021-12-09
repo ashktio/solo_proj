@@ -29,20 +29,32 @@ const Login = () => {
       });
       navigate("post/view-posts");
     } catch (err) {
-      console.log(err.response);
-      setErr(err.response.data.err);
+      setErr(err.response.data.error);
     }
   };
 
   return (
-    <MDBContainer>
-      <MDBRow>
-        <MDBCol md="6">
-          <MDBCard style={{ padding: "5%", marginTop: "5%" }}>
+    <MDBContainer
+      fluid
+      style={{
+        height: "100%",
+        position: "absolute",
+        left: "0",
+        overflow: "hidden",
+        width: "100%",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+        backgroundImage: `url(https://images.unsplash.com/photo-1511895426328-dc8714191300?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8NXx8fGVufDB8fHx8&w=1000&q=80)`,
+      }}
+    >
+      <MDBRow style={{ display: "flex", justifyContent: "center" }}>
+        <MDBCol md="3">
+          <MDBCard style={{ padding: "5%", marginTop: "10%" }}>
             <MDBCardBody>
               <MDBCardHeader className="form-header deep-blue-gradient rounded">
                 <h3 className="my-3">
-                  <MDBIcon icon="lock" /> Login:
+                  <MDBIcon icon="lock" /> Welcome! Login here:
                 </h3>
               </MDBCardHeader>
               <form onSubmit={handleSubmit}>

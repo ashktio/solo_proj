@@ -9,7 +9,7 @@ const register = async (req, res) => {
     const queriedUser = await User.findOne({ email: body.email });
 
     if (queriedUser) {
-      res.status(400).json({ err: "Email already in use" });
+      res.status(400).json({ error: "Email already in use" });
       return;
     }
   } catch (error) {
@@ -30,16 +30,16 @@ const login = async (req, res) => {
   const { body } = req;
 
   if (!body.email) {
-    res.status(400).json({ err: "Please enter your email" });
+    res.status(400).json({ error: "Please enter your email" });
     return;
   }
 
   let userQuery;
   try {
     userQuery = await User.findOne({ email: body.email });
-  } catch (err) {
+  } catch (error) {
     res.status(400).json({
-      err: "Something went wrong",
+      error: "Something went wrong",
     });
   }
 
@@ -47,7 +47,8 @@ const login = async (req, res) => {
 
   if (userQuery === null) {
     res.status(400).json({
-      err: "We could not find your email. If you don't have an account, please register.",
+      error:
+        "We could not find your email. If you don't have an account, please register.",
     });
     return;
   }
@@ -55,7 +56,7 @@ const login = async (req, res) => {
   const passwordCheck = bcrypt.compareSync(body.password, userQuery.password);
 
   if (!passwordCheck) {
-    res.status(400).json({ err: "email and/or password do not match" });
+    res.status(400).json({ error: "email and/or password do not match" });
     return;
   }
   // console.log('it gets here----------------------------------')
@@ -78,7 +79,7 @@ const logout = (req, res) => {
 const getOneUser = (req, res) => {
   User.findOne({ _id: req.user_id })
     .then((loggedUser) => res.json(loggedUser))
-    .catch((err) => res.status(400).json(err));
+    .catch((error) => res.status(400).json(error));
 };
 
 module.exports = {

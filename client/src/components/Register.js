@@ -41,28 +41,31 @@ const Register = () => {
     } catch (error) {
       console.log(error.response);
       setError(error.response.data.errors);
-      setErrmsg(error.response.data.err);
+      setErrmsg(error.response.data.error);
       console.log(errmsg);
     }
   };
   // FIX VALIDATION ERROR MESSAGES
   return (
     <MDBContainer
-    // style={{
-    //   height: "100%",
-    //   position: "absolute",
-    //   left: "0",
-    //   overflow: "hidden",
-    //   width: "100%",
-    //   backgroundPosition: "center",
-    //   backgroundRepeat: "no-repeat",
-    //   backgroundSize: "cover",
-    //   backgroundImage: `url(https://images.unsplash.com/photo-1511895426328-dc8714191300?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8NXx8fGVufDB8fHx8&w=1000&q=80)`,
-    // }}
+      fluid
+      style={{
+        height: "100%",
+        position: "absolute",
+        left: "0",
+        overflow: "hidden",
+        width: "100%",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+        backgroundImage: `url(https://images.unsplash.com/photo-1511895426328-dc8714191300?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8NXx8fGVufDB8fHx8&w=1000&q=80)`,
+      }}
     >
-      <MDBRow>
-        <MDBCol md="6">
-          <MDBCard style={{ padding: "5%", marginTop: "5%" }}>
+      <MDBRow
+        style={{ display: "flex", justifyContent: "center", padding: "2%" }}
+      >
+        <MDBCol md="4">
+          <MDBCard style={{ padding: "5%" }}>
             <MDBCardBody>
               <form onSubmit={handleSubmit}>
                 <h2 className="text-uppercase text-center mb-5">
@@ -103,6 +106,7 @@ const Register = () => {
                     {error && error.email && (
                       <p style={{ color: "red" }}>{error.email.message}</p>
                     )}
+                    {errmsg && <p style={{ color: "red" }}>{errmsg}</p>}
                   </MDBInput>
 
                   <MDBInput
