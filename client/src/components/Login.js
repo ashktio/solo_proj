@@ -1,6 +1,18 @@
-import { navigate } from "@reach/router";
+import { navigate, Link } from "@reach/router";
 import axios from "axios";
 import React, { useState } from "react";
+import { Button } from "react-bootstrap";
+import {
+  MDBContainer,
+  MDBRow,
+  MDBCol,
+  MDBCard,
+  MDBCardBody,
+  MDBModalFooter,
+  MDBIcon,
+  MDBCardHeader,
+  MDBInput,
+} from "mdbreact";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -23,48 +35,54 @@ const Login = () => {
   };
 
   return (
-    <div style={{ margin: "0 auto" }}>
-      <form
-        style={{
-          margin: "10px",
-          display: "inline-block",
-          alignItems: "space-between",
-          width: "400px",
-        }}
-        onSubmit={handleSubmit}
-      >
-        <div
-          style={{ height: "200px", margin: "10px", display: "inline-block" }}
-        >
-          <div style={{ textAlign: "left" }} className="form-group">
-            <label htmlFor="email">Email:</label>
-            <input
-              type="email"
-              className="form-control"
-              name="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            {err && <h3 style={{ color: "red" }}>{err}</h3>}
-          </div>
+    <MDBContainer>
+      <MDBRow>
+        <MDBCol md="6">
+          <MDBCard style={{ padding: "5%", marginTop: "5%" }}>
+            <MDBCardBody>
+              <MDBCardHeader className="form-header deep-blue-gradient rounded">
+                <h3 className="my-3">
+                  <MDBIcon icon="lock" /> Login:
+                </h3>
+              </MDBCardHeader>
+              <form onSubmit={handleSubmit}>
+                <div className="grey-text text-left">
+                  <MDBInput
+                    label="Type your email"
+                    icon="envelope"
+                    name="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  >
+                    {err && <p style={{ color: "red" }}>{err}</p>}
+                  </MDBInput>
+                  <MDBInput
+                    label="Type your password"
+                    icon="lock"
+                    type="password"
+                    name="password"
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                </div>
 
-          <div style={{ textAlign: "left" }} className="form-group">
-            <label htmlFor="password">Password:</label>
-            <input
-              type="password"
-              className="form-control"
-              name="password"
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </div>
-          <div style={{ margin: "20px" }}>
-            <button type="submit" className="btn btn-primary">
-              Submit
-            </button>
-          </div>
-        </div>
-      </form>
-    </div>
+                <div className="text-center mt-4">
+                  <Button color="light-blue" className="mb-3" type="submit">
+                    Login
+                  </Button>
+                </div>
+              </form>
+              <MDBModalFooter>
+                <div className="font-weight-light">
+                  <p>
+                    Not a member? <Link to="/">Sign Up </Link>
+                  </p>
+                </div>
+              </MDBModalFooter>
+            </MDBCardBody>
+          </MDBCard>
+        </MDBCol>
+      </MDBRow>
+    </MDBContainer>
   );
 };
 

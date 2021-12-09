@@ -6,6 +6,9 @@ const PostSchema = mongoose.Schema(
       type: String,
       minLength: [1, "Please write someting to post"],
     },
+    image: {
+      type: String,
+    },
     user_id: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
