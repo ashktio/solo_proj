@@ -19,19 +19,19 @@ import Button from "@restart/ui/esm/Button";
 const PostList = () => {
   const [posts, setPosts] = useState([]);
   const [loaded, setLoaded] = useState(false);
-  const [text, setText] = useState([]);
+  // const [text, setText] = useState([]);
   const [errors, setErrors] = useState({});
   const [user, setUser] = useState({});
 
-  const createPost = async (newPost) => {
+  const createPost = async (userPost) => {
     try {
       const response = await axios.post(
         "http://localhost:8000/api/post",
-        newPost,
+        userPost,
         { withCredentials: true }
       );
-      // console.log(response.data);
-      setText([...text, response.data]);
+      console.log("logging server response", response.data);
+      // setText([...text, response.data]);
     } catch (error) {
       console.log(error);
       setErrors(error.response.data.errors);
@@ -86,10 +86,22 @@ const PostList = () => {
                   <div>
                     <p>
                       <strong>
+                        {console.log("logging this out", post)}
                         {post.user_id.firstName} {post.user_id.lastName}
                       </strong>{" "}
                       posted: <strong> {post.text} </strong>
                     </p>
+                    {post.image && (
+                      <div className="card-image waves-effect waves-block waves-light">
+                        {console.log(post.image)}
+                        <img
+                          className="activator"
+                          style={{ width: "100%", height: "100%" }}
+                          src={post.image.image}
+                        />
+                      </div>
+                    )}
+
                     <p>
                       Date: {post.createdAt.slice(0, 10)} Time:{" "}
                       {post.createdAt.slice(11, 19)}{" "}

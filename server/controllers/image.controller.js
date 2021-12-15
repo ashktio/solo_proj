@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 
 const addImage = async (req, res) => {
   const { body } = req;
+  console.log("logging the bodyt", body);
   let newImage = new Image(body);
   console.log(newImage);
   const decodedJwt = jwt.decode(req.cookies.usertoken, { complete: true });

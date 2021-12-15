@@ -1,10 +1,13 @@
 const Post = require("../models/post.model");
 const jwt = require("jsonwebtoken");
 const User = require("../models/user.model");
+const { findOne } = require("../models/post.model");
 
 const createPost = async (req, res) => {
   const { body } = req;
-  let newPost = new Post(body);
+  // console.log("logging the request", body.userPost);
+  let newPost = new Post(body.userPost);
+  // console.log("logging the object after running ", newPost);
   const decodedJwt = jwt.decode(req.cookies.usertoken, { complete: true });
   // console.log(decodedJwt);
   newPost.user_id = decodedJwt.payload.id;
@@ -20,6 +23,7 @@ const createPost = async (req, res) => {
 const getAllPosts = async (req, res) => {
   try {
     const allPosts = await Post.find()
+
       .populate({
         path: "user_id",
         model: "User",
@@ -34,7 +38,7 @@ const getAllPosts = async (req, res) => {
       })
       .exec();
     res.json(allPosts);
-    // console.log("from back end", allPosts)
+    // console.log("from back end", allPosts);
   } catch (error) {
     res.status(400).json(error);
   }
